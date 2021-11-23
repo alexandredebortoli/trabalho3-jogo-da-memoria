@@ -9,16 +9,16 @@
 */
 #include <iostream>
 #include <time.h>
-//#include <locale.h>
-#include <Windows.h>
+#include <locale.h>
+//#include <Windows.h>
 using namespace std;
 
 #define TAM 4
 
 int main()
 {
-    //setlocale(LC_ALL, "Portuguese");
-    SetConsoleOutputCP(CP_UTF8);
+    setlocale(LC_ALL, "Portuguese");
+    //SetConsoleOutputCP(CP_UTF8);
 
     int matPrincipal [TAM][TAM] = {1, 4, 5, 2, 7, 2, 8, 7, 3, 6, 1, 4, 6, 5, 3, 8};
     int matGabarito [TAM][TAM];
