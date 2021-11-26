@@ -22,7 +22,7 @@ int main()
     int matGabarito [TAM][TAM]; //Matriz Gabarito
     int matJogo [TAM][TAM]; //Matriz Jogo
 
-    int selectMenu, jogadas, paresEncontrados; // Controle dos laços de repetições
+    int selectMenu, jogadas, paresEncontrados; //Controles do programa e pontuação no jogo
     int peca1L, peca2L, peca1C, peca2C; //Variáveis para Linha e Coluna das peças selecionadas pelo jogador
     bool posicaoVazia; //condição dos loops da linha 134 e 167. Repetir caso posicão informada já esteja sendo utilizada.
 
