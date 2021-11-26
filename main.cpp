@@ -10,7 +10,6 @@
 #include <iostream>
 #include <time.h>
 #include <locale.h>
-//#include <Windows.h>
 using namespace std;
 
 #define TAM 4
@@ -18,23 +17,23 @@ using namespace std;
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
-    //SetConsoleOutputCP(CP_UTF8);
 
-    int matPrincipal [TAM][TAM] = {1, 4, 5, 2, 7, 2, 8, 7, 3, 6, 1, 4, 6, 5, 3, 8};
-    int matGabarito [TAM][TAM];
-    int matJogo [TAM][TAM];
+    int matPrincipal [TAM][TAM] = {1, 4, 5, 2, 7, 2, 8, 7, 3, 6, 1, 4, 6, 5, 3, 8}; //Matriz Principal
+    int matGabarito [TAM][TAM]; //Matriz Gabarito
+    int matJogo [TAM][TAM]; //Matriz Jogo
 
     int selectMenu, jogadas, paresEncontrados; // Controle dos laços de repetições
-    int peca1L, peca2L, peca1C, peca2C;
-    bool vazio = false;
+    int peca1L, peca2L, peca1C, peca2C; //Variáveis para Linha e Coluna das peças selecionadas pelo jogador
+    bool posicaoVazia; //condição dos loops da linha 134 e 167. Repetir caso posicão informada já esteja sendo utilizada.
 
-    do
+    do //Do-While Loop do Programa. Sair caso selecao do menu seja 3-Fim.
     {
         system("cls");
         cout << "---------- Menu ----------\n" << "Digite o número da opção desejada\n"; //Menu
         cout << "1-Jogar / 2-Sobre / 3-Fim\n";
         cin >> selectMenu;
 
+        //If-ElseIf para seleção do menu, 1-Jogar ou 2-Sobre
         if(selectMenu == 1) /*************************** JOGAR ***************************/
         {
             system("cls");
@@ -100,6 +99,7 @@ int main()
             //INTERAÇÃO DO JOGO
             do
             {
+                //Mostrar interação do jogo (tabuleiro e pontuação)
                 cout << "Pares Encontrados: " << paresEncontrados << " / 8\t" << "Jogadas: " << jogadas << " / 24\n" << endl;
                 for (int i = 0; i < TAM; i++)
                 {
@@ -113,25 +113,26 @@ int main()
                 //VALOR PARA PEÇA 1
                 do
                 {
-                    cout << "\nInforme a posição (linha e coluna) da primeira peça a ser virada: " << endl;
+                    cout << "\nPeça 1 - Informe a linha e coluna desejadas: " << endl;
                     cin >> peca1L >> peca1C;
-                    peca1L -= 1;
+                    //Ao inves de o jogador informar posicao entre 0-3 optamos por 1-4
+                    peca1L -= 1; 
                     peca1C -= 1;
 
-                    if(matJogo[peca1L][peca1C] == 0)
+                    if(matJogo[peca1L][peca1C] == 0) //If-Else para preencher posicao em matJogo caso posicao nao esteja sendo utilizada
                     {
                         matJogo[peca1L][peca1C] = matGabarito[peca1L][peca1C];
-                        vazio = true;
+                        posicaoVazia = true;
                     }
                     else
                     {
                         cout << "\nPosição informada inválida. Tente novamente...\n" << endl;
-                        vazio = false;
+                        posicaoVazia = false;
                     }
-                } while (vazio != true);
+                } while (posicaoVazia != true); //Do-while para repetir caso a posicao informada já esteja sendo utilizada
 
                 system("cls");
-
+                //Atualizar tabuleiro para jogador ver peça 1 selecionada
                 cout << "Pares Encontrados: " << paresEncontrados << " / 8\t" << "Jogadas: " << jogadas << " / 24\n" << endl;
                 for (int i = 0; i < TAM; i++)
                 {
@@ -145,25 +146,26 @@ int main()
                 //VALOR PARA PEÇA 2
                 do
                 {
-                    cout << "\nInforme a posição (linha e coluna) da segunda peça a ser virada: " << endl;
+                    cout << "\nPeça 2 - Informe a linha e coluna desejadas: " << endl;
                     cin >> peca2L >> peca2C;
+                    //Ao inves de o jogador informar posicao entre 0-3 optamos por 1-4
                     peca2L -= 1;
                     peca2C -= 1;
 
-                    if(matJogo[peca2L][peca2C] == 0)
+                    if(matJogo[peca2L][peca2C] == 0) //If-Else para preencher posicao em matJogo caso posicao nao esteja sendo utilizada
                     {
                         matJogo[peca2L][peca2C] = matGabarito[peca2L][peca2C];
-                        vazio = true;
+                        posicaoVazia = true;
                     }
                     else
                     {
                         cout << "\nPosição informada inválida. Tente novamente...\n" << endl;
-                        vazio = false;
+                        posicaoVazia = false;
                     }
-                } while (vazio != true);
+                } while (posicaoVazia != true); //Do-while para repetir caso a posicao informada já esteja sendo utilizada
                 
                 system("cls");
-
+                //Atualizar tabuleiro para jogador ver peça 2 selecionada
                 cout << "Pares Encontrados: " << paresEncontrados << " / 8\t" << "Jogadas: " << jogadas << " / 24\n" << endl;
                 for (int i = 0; i < TAM; i++)
                 {
@@ -174,6 +176,7 @@ int main()
                     cout << endl;
                 }
 
+                //If-Else para verificar se as peças selecionadas formam um par
                 if (matJogo[peca1L][peca1C] == matJogo[peca2L][peca2C])
                 {
                     cout << "\nJOGADA OK\n" << endl;
@@ -183,15 +186,16 @@ int main()
                 else 
                 {
                     cout << "\nJOGADA NOK\n" << endl;
-                    matJogo[peca1L][peca1C] = 0;
+                    matJogo[peca1L][peca1C] = 0; //zerar posicoes caso pecas não formem um par
                     matJogo[peca2L][peca2C] = 0;
                     jogadas--;
                 }
 
                 system("pause");
                 system("cls");
-            } while (paresEncontrados < 8 && jogadas > 0);
+            } while (paresEncontrados < 8 && jogadas > 0); //Do-While para loop do jogo. Sai do loop quando todos os pares forem encontrados ou quando acabarem as jogadas.
 
+            //If-Else mostrando resultado do Jogo
             if (paresEncontrados == 8)
                 cout << "VITÓRIA!\n" << endl;
             else
@@ -215,6 +219,7 @@ int main()
             cout << "Rafael Ballotin Martins";
             cout << " - Algoritmos e Programação\n";
 
+            cout << endl;
             system("pause");
         }
 
